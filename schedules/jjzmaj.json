@@ -1,0 +1,46 @@
+{
+
+	"days" : {
+        "Monday": true,
+        "Tuesday": true,
+        "Wednesday": true,
+        "Thursday": true,
+        "Friday": true,
+        "Saturday": false,
+        "Sunday": false
+    },
+
+    "default sound": "russian_bells_short.wav",
+
+	"times": [
+        [ 7, 30,  0, "russian_bells_long.wav"],
+		[ 8, 15,  0],
+		[ 8, 20,  0],
+		[ 9,  5,  0],
+		[ 9, 10,  0],
+		[ 9, 55,  0, "russian_bells_long.wav"],
+		[10, 10,  0, "russian_bells_long.wav"],
+		[10, 55,  0],
+		[11,  0,  0],
+		[11, 45,  0],
+		[11, 50,  0],
+		[12, 35,  0],
+		[12, 40,  0],
+		[13, 25,  0, "russian_bells_long.wav"],
+        [13, 35,  0, "russian_bells_long.wav"],
+		[14, 20,  0],
+		[14, 25,  0],
+		[15, 10,  0],
+		[15, 15,  0],
+		[16,  0,  0, "russian_bells_long.wav"],
+		[16, 15,  0, "russian_bells_long.wav"],
+		[17,  0,  0],
+		[17,  5,  0],
+		[17, 50,  0],
+		[17, 55,  0],
+		[18, 40,  0],
+		[18, 45,  0],
+		[19, 30,  0, "russian_bells_long.wav"]
+    ]
+    
+}
