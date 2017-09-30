@@ -1,0 +1,11 @@
+{
+    "version": "1.0.0",
+    "tasks": [
+        {
+            "taskName": "Run",
+            "type": "shell",
+            "command": "./school_bell.py",
+            "problemMatcher": []
+        }
+    ]
+}
