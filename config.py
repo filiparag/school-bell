@@ -1,10 +1,10 @@
 import configparser
+from datetime import datetime
 from os import path, sep
 
 directory = path.dirname(path.realpath(__file__)) + sep
 
 config = None
-
 
 def get(section, key):
 
@@ -28,6 +28,18 @@ def set(section, key, value):
         config[section] = {}
 
     config[section][key] = value
+
+def verbose(message):
+
+    timestamp = datetime.now().strftime("[ %Y/%m/%d %H:%M:%S ]")
+
+    if get('bell', 'verbose'):
+        print(timestamp + ' ' + message)
+
+    if get('bell', 'log'):
+        with open('log.txt', 'a') as log_file:
+            log_file.write(timestamp + ' ' + message + '\n')
+
 
 
 def load():
