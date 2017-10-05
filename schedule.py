@@ -3,6 +3,7 @@ from os import sep, listdir
 from queue import Queue
 import config
 import datetime
+import time
 
 schedules = None
 
@@ -37,6 +38,14 @@ def today(schedule):
     return time_list
 
 
+def list_names():
+
+    if schedules is None:
+        load()
+
+    return list(schedules.keys())
+
+
 def load():
 
     schedule_list = listdir(config.directory + 'schedules')
@@ -47,7 +56,7 @@ def load():
     for schedule_filename in schedule_list:
 
         schedule = {}
-        with open(config.directory + 'schedules' + sep + schedule_filename) as schedule_file:
+        with open(config.directory + 'schedules' + sep + schedule_filename, 'r') as schedule_file:
 
             json_decoded = json.loads(schedule_file.read())
 
@@ -66,3 +75,13 @@ def load():
             schedule['times'].sort()
 
         schedules[schedule_filename[:-5]] = schedule
+
+
+def wait_tomorrow():
+
+    today = datetime.datetime.now().weekday()
+    tomorrow = today
+
+    while tomorrow == today:
+        time.sleep(0.1)
+        tomorrow = datetime.datetime.now().weekday()
