@@ -89,7 +89,7 @@ def load_state():
     if config.get('raspberry', 'save'):
         global state
         config.verbose('Loading Raspberry Pi state.')
-        with open('gpio_state.txt', 'r') as state_file:
+        with open(config.directory + 'gpio_state.txt', 'r') as state_file:
             saved_state = state_file.readline()
             saved_state = saved_state.split(',')
             if len(saved_state) < 2:
@@ -107,7 +107,7 @@ def save_state():
 
     if config.get('raspberry', 'save'):
         global state
-        with open('gpio_state.txt', 'w') as state_file:
+        with open(config.directory + 'gpio_state.txt', 'w') as state_file:
             state_file.write(','.join([
                 '1' if state['active'] else '0',
                 str(state['schedule']['active'])
