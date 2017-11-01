@@ -3,55 +3,33 @@
 import config
 import schedule
 import ringer
-from multiprocessing import Process
 
 
-def start():
+def main():
 
     if config.get('raspberry', 'gpio'):
-
+        config.verbose('Running in Raspberry Pi mode')
         import raspberry
-
-        config.verbose('Raspberry Pi mode enabled')
-
+        import time
         raspberry.configure(schedule.list_names())
-        schedule_name = raspberry.schedule()
-
+        while True:
+            if raspberry.active():
+                schedule_name = raspberry.schedule()
+                schedule_queue = schedule.today(schedule_name)
+                if not schedule_queue.empty():
+                    config.verbose('Schedule: %s' % schedule_name)
+                    ringer.start(schedule_queue, raspberry.active)
+                schedule.wait_tomorrow(lambda: not raspberry.active())
+            time.sleep(0.1)
     else:
-
-        schedule_name = config.get('bell', 'schedule')
-
-    config.verbose('Schedule: %s' % schedule_name)
-
-    while True:
-
-        schedule_queue = schedule.today(schedule_name)
-
-        config.verbose('Fetched today\'s schedule queue')
-
-        bell = Process(target=ringer.start, args=(schedule_queue,))
-        bell.start()
-
-        config.verbose('Started ringer process')
-
-        if config.get('raspberry', 'gpio'):
-
-            while schedule_name == raspberry.schedule():
-                pass
-
-            bell.terminate()
-
-            config.verbose('Schedule change, terminating ringer process')
-
-        else:
-
-            bell.join()
-
-            config.verbose('Today\'s schedule complete')
-            config.verbose('Waiting for tomorrow')
-
+        config.verbose('Running in regular mode')
+        while True:
+            schedule_queue = schedule.today(schedule_name)
+            if not schedule_queue.empty():
+                config.verbose('Schedule: %s' % schedule_name)
+                ringer.start(schedule_queue, lambda: True)
             schedule.wait_tomorrow()
 
 
 if __name__ == '__main__':
-    start()
+    main()
