@@ -5,7 +5,11 @@
             "taskName": "Run",
             "type": "shell",
             "command": "./school_bell.py",
-            "problemMatcher": []
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }

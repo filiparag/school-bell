@@ -4,4 +4,61 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-school-bell.py	../school-bell.py	1;"	kind:file	line:1
+GPIO	../raspberry.py	/^import RPi.GPIO as GPIO$/;"	kind:namespace	line:3
+Popen	../ringer.py	/^from subprocess import Popen$/;"	kind:namespace	line:5
+Process	../school_bell.py	/^from multiprocessing import Process$/;"	kind:namespace	line:6
+Queue	../schedule.py	/^from queue import Queue$/;"	kind:namespace	line:3
+RPi	../raspberry.py	/^import RPi.GPIO as GPIO$/;"	kind:namespace	line:3
+action_active	../raspberry.py	/^def action_active(channel):$/;"	kind:function	line:44
+action_macro	../raspberry.py	/^def action_macro(channel):$/;"	kind:function	line:63
+action_schedule	../raspberry.py	/^def action_schedule(channel):$/;"	kind:function	line:53
+active	../raspberry.py	/^def active():$/;"	kind:function	line:34
+active_state	../raspberry.py	/^active_state = False$/;"	kind:variable	line:5
+config	../config.py	/^config = None$/;"	kind:variable	line:7
+config	../raspberry.py	/^import config$/;"	kind:namespace	line:1
+config	../ringer.py	/^import config$/;"	kind:namespace	line:1
+config	../schedule.py	/^import config$/;"	kind:namespace	line:4
+config	../school_bell.py	/^import config$/;"	kind:namespace	line:3
+config.py	../config.py	1;"	kind:file	line:1
+configparser	../config.py	/^import configparser$/;"	kind:namespace	line:1
+configure	../raspberry.py	/^def configure(shedule_list):$/;"	kind:function	line:9
+current_time	../ringer.py	/^def current_time():$/;"	kind:function	line:36
+datetime	../config.py	/^from datetime import datetime$/;"	kind:namespace	line:2
+datetime	../ringer.py	/^import datetime$/;"	kind:namespace	line:3
+datetime	../schedule.py	/^import datetime$/;"	kind:namespace	line:5
+directory	../config.py	/^directory = path.dirname(path.realpath(__file__)) + sep$/;"	kind:variable	line:5
+get	../config.py	/^def get(section, key):$/;"	kind:function	line:9
+json	../schedule.py	/^import json$/;"	kind:namespace	line:1
+list_names	../schedule.py	/^def list_names():$/;"	kind:function	line:41
+listdir	../schedule.py	/^from os import sep, listdir$/;"	kind:namespace	line:2
+load	../config.py	/^def load():$/;"	kind:function	line:45
+load	../schedule.py	/^def load():$/;"	kind:function	line:49
+load_state	../raspberry.py	/^def load_state():$/;"	kind:function	line:69
+macro	../macro.py	/^def macro():$/;"	kind:function	line:1
+macro	../raspberry.py	/^from macro import macro$/;"	kind:namespace	line:2
+macro.py	../macro.py	1;"	kind:file	line:1
+main	../school_bell.py	/^def main():$/;"	kind:function	line:9
+path	../config.py	/^from os import path, sep$/;"	kind:namespace	line:3
+raspberry	../school_bell.py	/^        import raspberry$/;"	kind:namespace	line:13
+raspberry.py	../raspberry.py	1;"	kind:file	line:1
+ring	../ringer.py	/^def ring(sound_file):$/;"	kind:function	line:27
+ringer	../school_bell.py	/^import ringer$/;"	kind:namespace	line:5
+ringer.py	../ringer.py	1;"	kind:file	line:1
+save_state	../raspberry.py	/^def save_state():$/;"	kind:function	line:87
+schedule	../raspberry.py	/^def schedule():$/;"	kind:function	line:39
+schedule	../school_bell.py	/^import schedule$/;"	kind:namespace	line:4
+schedule.py	../schedule.py	1;"	kind:file	line:1
+schedule_state	../raspberry.py	/^schedule_state = None$/;"	kind:variable	line:6
+schedules	../schedule.py	/^schedules = None$/;"	kind:variable	line:8
+school_bell.py	../school_bell.py	1;"	kind:file	line:1
+sep	../config.py	/^from os import path, sep$/;"	kind:namespace	line:3
+sep	../ringer.py	/^from os import sep$/;"	kind:namespace	line:4
+sep	../schedule.py	/^from os import sep, listdir$/;"	kind:namespace	line:2
+set	../config.py	/^def set(section, key, value):$/;"	kind:function	line:21
+start	../ringer.py	/^def start(schedule, active):$/;"	kind:function	line:8
+time	../ringer.py	/^import time$/;"	kind:namespace	line:2
+time	../schedule.py	/^import time$/;"	kind:namespace	line:6
+today	../schedule.py	/^def today(schedule):$/;"	kind:function	line:21
+verbose	../config.py	/^def verbose(message):$/;"	kind:function	line:32
+wait_tomorrow	../schedule.py	/^def wait_tomorrow():$/;"	kind:function	line:80
+weekdays	../schedule.py	/^weekdays = {$/;"	kind:variable	line:10
