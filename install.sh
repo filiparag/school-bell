@@ -12,8 +12,8 @@ case "$choice" in
 esac
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-SERVICE_DIR="/etc/systemd/system"
 
+SERVICE_DIR="/etc/systemd/system"
 SYSTEMD_SERVICE_FILE="
 [Unit]                                              \n
 Description=School bell service                     \n
@@ -31,6 +31,17 @@ read -p "Enable school-bell service [y/N]: " choice
 case "$choice" in 
   y|Y ) systemctl enable school-bell.service;;
   n|N|* ) ;;
+esac
+
+CRON_DIR="/etc/cron.hourly/"
+CROJ_JOB_FILE="
+#! /bin/bash                                        \n
+/usr/bin/env bash $DIR/update.sh"
+
+read -p "Enable automatic updates from the developer [y/N]: " choice
+case "$choice" in 
+  y|Y ) echo -e $CROJ_JOB_FILE > "$CRON_DIR/school-bell.sh" && chmod +x $CRON_DIR/school-bell.sh;;
+  n|N|* ) exit;;
 esac
 
 read -p "Start school-bell service [y/N]: " choice
