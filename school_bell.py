@@ -3,6 +3,7 @@
 import config
 import schedule
 import ringer
+import argparse
 
 
 def main():
@@ -24,6 +25,7 @@ def main():
     else:
         config.verbose('Running in regular mode')
         while True:
+            schedule_name = config.get('bell', 'schedule')
             schedule_queue = schedule.today(schedule_name)
             if not schedule_queue.empty():
                 config.verbose('Schedule: %s' % schedule_name)
