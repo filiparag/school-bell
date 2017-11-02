@@ -27,20 +27,20 @@
 		[12, 35,  0],
 		[12, 40,  0],
 		[13, 25,  0, "russian_bells_long.wav"],
-		[13, 35,  0, "russian_bells_long.wav"],
-		[14, 20,  0],
+		[13, 40,  0, "russian_bells_long.wav"],
 		[14, 25,  0],
-		[15, 10,  0],
+		[14, 30,  0],
 		[15, 15,  0],
-		[16,  0,  0, "russian_bells_long.wav"],
-		[16, 15,  0, "russian_bells_long.wav"],
-		[17,  0,  0],
+		[15, 20,  0],
+		[16,  5,  0, "russian_bells_long.wav"],
+		[16, 20,  0, "russian_bells_long.wav"],
 		[17,  5,  0],
-		[17, 50,  0],
+		[17, 10,  0],
 		[17, 55,  0],
-		[18, 40,  0],
+		[18,  0,  0],
 		[18, 45,  0],
-		[19, 30,  0, "russian_bells_long.wav"]
+		[18, 50,  0],
+		[19, 35,  0, "russian_bells_long.wav"]
     ]
     
 }
