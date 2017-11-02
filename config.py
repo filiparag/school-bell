@@ -39,7 +39,7 @@ def verbose(message):
 
 
 def load():
-    
+
     parser = configparser.ConfigParser()
     parser.read(directory + 'config.ini')
     global config

@@ -40,10 +40,11 @@ def configure(schedule_list):
 
     config.verbose('Executing macro configure.')
     macro.configure(lambda: GPIO.output(config.get('raspberry', 'led_macro'), 0),
-                 lambda: GPIO.output(config.get('raspberry', 'led_macro'), 1),
-                 lambda i, r: blink(config.get(
-                     'raspberry', 'led_macro'), i, r),
-                 config.verbose,)
+                    lambda: GPIO.output(config.get(
+                        'raspberry', 'led_macro'), 1),
+                    lambda i, r: blink(config.get(
+                        'raspberry', 'led_macro'), i, r),
+                    config.verbose,)
     save_state()
 
 
