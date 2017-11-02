@@ -108,7 +108,7 @@ def load_state():
                 saved_state = ['0'] * 3
             state['active'] = True if saved_state[0] is '1' else False
             state['schedule']['active'] = int(saved_state[1])
-            state['macro'] = str(saved_state[2])
+            state['macro'] = int(saved_state[2])
         config.verbose('Loaded state: %s, schedule: \'%s\', macro: \'%s\'' %
                        (
                            'on' if state['active'] else 'off',
