@@ -125,7 +125,7 @@ def save_state():
             state_file.write(','.join([
                 '1' if state['active'] else '0',
                 str(state['schedule']['active']),
-                str(state['macro'])
+                str(int(state['macro']))
             ]))
 
 
