@@ -11,8 +11,8 @@ then
 
     echo "Update available, fetching from GitHub..."
 
-    git reset --hard > /dev/null
-    git pull >> $DIR/updates.txt
+    git reset --progress --hard >> $DIR/updates.txt
+    git pull --progress >> $DIR/updates.txt
 
     echo "Update applied successfully!"
 
