@@ -1,5 +1,5 @@
 import config
-from macro import macro
+import macro
 import RPi.GPIO as GPIO
 
 state = {
@@ -7,7 +7,8 @@ state = {
     'schedule': {
         'active': 0,
         'names': ['default']
-    }
+    },
+    'macro': 0
 }
 
 
@@ -36,6 +37,15 @@ def configure(schedule_list):
                           GPIO.FALLING, callback=action_schedule, bouncetime=100)
     GPIO.add_event_detect(config.get('raspberry', 'btn_macro'),
                           GPIO.FALLING, callback=action_macro, bouncetime=100)
+
+    config.verbose('Executing macro configure.')
+    macro.configure(lambda: GPIO.output(config.get('raspberry', 'led_macro'), 0),
+                 lambda: GPIO.output(config.get('raspberry', 'led_macro'), 1),
+                 lambda i, r: blink(config.get(
+                     'raspberry', 'led_macro'), i, r),
+                 state['macro'],
+                 config.verbose,)
+    save_state()
 
 
 def active():
@@ -77,10 +87,12 @@ def action_schedule(channel):
 def action_macro(channel):
 
     config.verbose('Macro button pressed, executing macro.')
-    macro(lambda: GPIO.output(config.get('raspberry', 'led_macro'), 0),
-          lambda: GPIO.output(config.get('raspberry', 'led_macro'), 1),
-          lambda i, r: blink(config.get('raspberry', 'led_macro'), i, r),
-          config.verbose,)
+    macro.button(lambda: GPIO.output(config.get('raspberry', 'led_macro'), 0),
+                 lambda: GPIO.output(config.get('raspberry', 'led_macro'), 1),
+                 lambda i, r: blink(config.get(
+                     'raspberry', 'led_macro'), i, r),
+                 state['macro'],
+                 config.verbose,)
     save_state()
 
 
@@ -92,14 +104,16 @@ def load_state():
         with open(config.directory + 'gpio_state.txt', 'r') as state_file:
             saved_state = state_file.readline()
             saved_state = saved_state.split(',')
-            if len(saved_state) < 2:
-                saved_state = ['0'] * 2
+            if len(saved_state) < 3:
+                saved_state = ['0'] * 3
             state['active'] = True if saved_state[0] is '1' else False
             state['schedule']['active'] = int(saved_state[1])
-        config.verbose('Loaded state: %s, schedule: \'%s\'' %
+            state['macro'] = str(saved_state[2])
+        config.verbose('Loaded state: %s, schedule: \'%s\', macro: \'%s\'' %
                        (
                            'on' if state['active'] else 'off',
-                           schedule()
+                           schedule(),
+                           str(state['macro'])
                        ))
 
 
@@ -110,7 +124,8 @@ def save_state():
         with open(config.directory + 'gpio_state.txt', 'w') as state_file:
             state_file.write(','.join([
                 '1' if state['active'] else '0',
-                str(state['schedule']['active'])
+                str(state['schedule']['active']),
+                str(state['macro'])
             ]))
 
 
