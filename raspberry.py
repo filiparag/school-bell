@@ -113,7 +113,7 @@ def load_state():
                        (
                            'on' if state['active'] else 'off',
                            schedule(),
-                           str(state['macro'])
+                           int(state['macro'])
                        ))
 
 
@@ -125,7 +125,7 @@ def save_state():
             state_file.write(','.join([
                 '1' if state['active'] else '0',
                 str(state['schedule']['active']),
-                str(int(state['macro']))
+                str(state['macro'])
             ]))
 
 
