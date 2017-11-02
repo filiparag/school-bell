@@ -13,6 +13,9 @@ esac
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+touch $DIR/updates.txt $DIR/gpio_state.txt $DIR/log.txt
+chmod 777 $DIR/updates.txt $DIR/gpio_state.txt $DIR/log.txt
+
 SERVICE_DIR="/etc/systemd/system"
 SYSTEMD_SERVICE_FILE="
 [Unit]                                              \n
