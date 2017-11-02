@@ -43,7 +43,6 @@ def configure(schedule_list):
                  lambda: GPIO.output(config.get('raspberry', 'led_macro'), 1),
                  lambda i, r: blink(config.get(
                      'raspberry', 'led_macro'), i, r),
-                 state['macro'],
                  config.verbose,)
     save_state()
 
@@ -91,7 +90,6 @@ def action_macro(channel):
                  lambda: GPIO.output(config.get('raspberry', 'led_macro'), 1),
                  lambda i, r: blink(config.get(
                      'raspberry', 'led_macro'), i, r),
-                 state['macro'],
                  config.verbose,)
     save_state()
 
