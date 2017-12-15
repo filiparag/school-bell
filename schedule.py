@@ -22,11 +22,11 @@ def today(schedule):
 
     if schedules is None:
         load()
+    time_list = Queue()
     if schedules[schedule]['days'][datetime.datetime.now().weekday()] is False:
-        return None
+        return time_list
     current_time = (datetime.datetime.now().hour, datetime.datetime.now(
     ).minute, datetime.datetime.now().second)
-    time_list = Queue()
     for time in schedules[schedule]['times']:
         if (time[:-1] >= current_time):
             time_list.put(time)
@@ -67,5 +67,5 @@ def wait_tomorrow(stop=False):
     today = datetime.datetime.now().weekday()
     tomorrow = today
     while tomorrow == today and not stop:
-        time.sleep(0.1)
         tomorrow = datetime.datetime.now().weekday()
+        time.sleep(0.1)

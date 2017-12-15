@@ -33,5 +33,5 @@ def ring(sound_file):
 def current_time():
 
     offset_time = datetime.datetime.now()\
-        + datetime.timedelta(seconds=config.get('bell', 'offset') - 1)
+        + datetime.timedelta(seconds=config.get('bell', 'offset'))
     return (offset_time.hour, offset_time.minute, offset_time.second)
