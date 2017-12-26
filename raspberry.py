@@ -97,6 +97,8 @@ def load_state():
             with open(config.directory + '.gpio_state', 'rb') as pickle_file:
                 state = pickle.load(pickle_file)
             use_default = False
+        except Exception:
+            config.verbose('Previous GPIO state could not be restored, using defaults')
 
     if use_default:
         config.verbose('No GPIO state file found, using defaults')
