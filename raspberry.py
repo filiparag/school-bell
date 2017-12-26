@@ -90,11 +90,15 @@ def action_macro(channel):
 
 def load_state():
 
+    use_default = True
     global state
     if os.path.isfile(config.directory + '.gpio_state'):
-        with open(config.directory + '.gpio_state', 'rb') as pickle_file:
-            state = pickle.load(pickle_file)
-    else:
+        try:
+            with open(config.directory + '.gpio_state', 'rb') as pickle_file:
+                state = pickle.load(pickle_file)
+            use_default = False
+
+    if use_default:
         config.verbose('No GPIO state file found, using defaults')
         state = {
             'active': True,
