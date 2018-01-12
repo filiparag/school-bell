@@ -3,7 +3,10 @@ import pickle
 import macro
 import time
 import os
+import threading
 import RPi.GPIO as GPIO
+
+button_state = [False, False, False]
 
 
 def configure(schedule_list):
@@ -12,6 +15,10 @@ def configure(schedule_list):
     config.verbose('Loading state')
     load_state()
     state['schedule']['names'] = schedule_list
+    schedule_list.sort()
+    print(schedule_list)
+
+    config.verbose('Selected schedule is \'%s\'' % schedule())
 
     config.verbose('Configuring Raspberry PI')
     GPIO.setwarnings(False)
@@ -20,26 +27,54 @@ def configure(schedule_list):
 
     GPIO.setup(config.get('raspberry', 'led_power'), GPIO.OUT)
     GPIO.output(config.get('raspberry', 'led_power'), state['active'])
-    for led_pin in config.get('raspberry', 'led_array'):  
+    for led_pin in config.get('raspberry', 'led_array'):
         GPIO.setup(led_pin, GPIO.OUT)
     set_led_array(state['led'])
 
-    GPIO.setup(config.get('raspberry', 'btn_power'),
-               GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(config.get('raspberry', 'btn_sched'),
-               GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(config.get('raspberry', 'btn_macro'),
-               GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.add_event_detect(config.get('raspberry', 'btn_power'),
-                          GPIO.FALLING, callback=action_active, bouncetime=300)
-    GPIO.add_event_detect(config.get('raspberry', 'btn_sched'),
-                          GPIO.FALLING, callback=action_schedule, bouncetime=300)
-    GPIO.add_event_detect(config.get('raspberry', 'btn_macro'),
-                          GPIO.FALLING, callback=action_macro, bouncetime=300)
+    GPIO.setup(config.get('raspberry', 'btn_power'), GPIO.IN)
+    GPIO.setup(config.get('raspberry', 'btn_sched'), GPIO.IN)
+    GPIO.setup(config.get('raspberry', 'btn_macro'), GPIO.IN)
+
+    button_reader = threading.Thread(target=button_read, daemon=True)
+    button_reader.run()
+
+    config.verbose('GPIO is active')
 
     config.verbose('Executing macro configure.')
     macro.configure(set_led_array, config.verbose,)
     save_state()
+
+
+def button_read():
+
+    global button_state
+
+    while True:
+        button_state_new_1 = [not GPIO.input(config.get('raspberry', 'btn_power')),
+                              not GPIO.input(config.get(
+                                  'raspberry', 'btn_sched')),
+                              not GPIO.input(config.get('raspberry', 'btn_macro'))]
+        time.sleep(0.1)
+        button_state_new_2 = [not GPIO.input(config.get('raspberry', 'btn_power')),
+                              not GPIO.input(config.get(
+                                  'raspberry', 'btn_sched')),
+                              not GPIO.input(config.get('raspberry', 'btn_macro'))]
+
+        button_state_new = [one if one is two else False for one, two in
+                            zip(button_state_new_1, button_state_new_2)]
+
+        button_state_delta = [True if old is not new else False for old, new in
+                              zip(button_state, button_state_new)]
+
+        button_state = button_state_new
+
+        if button_state_delta != [False] * 3:
+            if button_state[0]:
+                action_active()
+            if button_state[1]:
+                action_schedule()
+            if button_state[2]:
+                action_macro()
 
 
 def active():
@@ -52,7 +87,7 @@ def schedule():
     return state['schedule']['names'][state['schedule']['active']]
 
 
-def action_active(channel):
+def action_active():
 
     global state
     state['active'] = not state['active']
@@ -63,11 +98,12 @@ def action_active(channel):
     else:
         set_led_array(number=state['schedule']['active'] + 1)
     GPIO.output(config.get('raspberry', 'led_power'), state['active'])
-    config.verbose('Executing macro configure.')    
-    macro.configure(set_led_array, config.verbose,)    
+    config.verbose('Executing macro configure.')
+    macro.configure(set_led_array, config.verbose,)
     save_state()
 
-def action_schedule(channel):
+
+def action_schedule():
 
     global state
     if state['active']:
@@ -82,11 +118,12 @@ def action_schedule(channel):
     save_state()
 
 
-def action_macro(channel):
+def action_macro():
 
     config.verbose('Macro button pressed, executing macro.')
     macro.button(set_led_array, config.verbose,)
     save_state()
+
 
 def load_state():
 
@@ -98,7 +135,8 @@ def load_state():
                 state = pickle.load(pickle_file)
             use_default = False
         except Exception:
-            config.verbose('Previous GPIO state could not be restored, using defaults')
+            config.verbose(
+                'Previous GPIO state could not be restored, using defaults')
 
     if use_default:
         config.verbose('No GPIO state file found, using defaults')
@@ -111,7 +149,6 @@ def load_state():
             },
             'macro': None
         }
-
 
 
 def save_state():
@@ -138,7 +175,8 @@ def set_led_array(values=(False, False, False), number=None):
     state['led'] = values
     for (led_pin, value) in zip(config.get('raspberry', 'led_array'), values):
         GPIO.output(led_pin, value)
-    save_state()  
+    save_state()
+
 
 def blink(pin, interval, repetitions):
 
