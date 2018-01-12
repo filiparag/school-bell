@@ -60,6 +60,7 @@ def load():
                     line += [default_sound]
                 schedule['times'] += [tuple(line)]
             schedule['times'].sort()
+            schedule['default sound'] = default_sound
         schedules[schedule_filename[:-5]] = schedule
 
 

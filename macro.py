@@ -32,5 +32,5 @@ def button(set_led_vector, log):
             state['macro'] = 1
             log('Enabled this schedule on Saturday')
     else:
-        log('Manually playing bell')
-        ring(schedules[schedule()]['times'][0][3])
+        log('Manually playing default bell')
+        ring(schedules[schedule()]['default sound'])
