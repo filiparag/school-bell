@@ -47,35 +47,35 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Conn_01x13 J1
+L Conn_01x20_Female J1
 U 1 1 5A57D52F
-P 1050 1350
-F 0 "J1" H 1050 1850 50  0000 C CNN
-F 1 "Conn_01x10_Male" H 1050 750 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Angled_1x13_Pitch2.54mm" H 1050 1350 50  0001 C CNN
-F 3 "" H 1050 1350 50  0001 C CNN
-	1    1050 1350
+P 700 2000
+F 0 "J1" H 700 2500 50  0000 C CNN
+F 1 "Conn_01x10_Male" H 700 1400 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x20_Pitch2.54mm" H 700 2000 50  0001 C CNN
+F 3 "" H 700 2000 50  0001 C CNN
+	1    700  2000
 	-1   0    0    -1  
 $EndComp
-Text GLabel 1250 850  2    60   Input ~ 0
+Text GLabel 900  1100 2    60   Input ~ 0
 Vcc
-Text GLabel 1250 750  2    60   Input ~ 0
+Text GLabel 900  1500 2    60   Input ~ 0
 GND
-Text GLabel 1250 950  2    60   Input ~ 0
+Text GLabel 900  2600 2    60   Input ~ 0
 B_PWR
-Text GLabel 1250 1050 2    60   Input ~ 0
+Text GLabel 900  2700 2    60   Input ~ 0
 B_SCH
-Text GLabel 1250 1150 2    60   Input ~ 0
+Text GLabel 900  2800 2    60   Input ~ 0
 B_SAT
-Text GLabel 1250 1550 2    60   Input ~ 0
+Text GLabel 900  1400 2    60   Input ~ 0
 L_PWR
-Text GLabel 1250 1650 2    60   Input ~ 0
+Text GLabel 900  1600 2    60   Input ~ 0
 L_SC1
-Text GLabel 1250 1750 2    60   Input ~ 0
+Text GLabel 900  1700 2    60   Input ~ 0
 L_SC2
-Text GLabel 1250 1850 2    60   Input ~ 0
+Text GLabel 900  1800 2    60   Input ~ 0
 L_SC3
-Text GLabel 1250 1950 2    60   Input ~ 0
+Text GLabel 900  2500 2    60   Input ~ 0
 L_SAT
 $Comp
 L SW_Push SW_PWR1
@@ -94,7 +94,7 @@ U 1 1 5A57D89F
 P 2950 800
 F 0 "R_B_PWR1" V 3030 800 50  0000 C CNN
 F 1 "R" V 2950 800 50  0000 C CNN
-F 2 "Resistors_SMD:R_2512_HandSoldering" V 2880 800 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 2880 800 50  0001 C CNN
 F 3 "" H 2950 800 50  0001 C CNN
 	1    2950 800 
 	0    1    1    0   
@@ -113,7 +113,7 @@ U 1 1 5A57DB6E
 P 5350 900
 F 0 "D_PWR1" H 5350 1000 50  0000 C CNN
 F 1 "LED" H 5350 800 50  0000 C CNN
-F 2 "LEDs:LED_1206_HandSoldering" H 5350 900 50  0001 C CNN
+F 2 "LEDs:LED_D3.0mm" H 5350 900 50  0001 C CNN
 F 3 "" H 5350 900 50  0001 C CNN
 	1    5350 900 
 	-1   0    0    1   
@@ -126,7 +126,7 @@ U 1 1 5A57DC15
 P 4950 900
 F 0 "R_L_PWR1" V 5030 900 50  0000 C CNN
 F 1 "R" V 4950 900 50  0000 C CNN
-F 2 "Resistors_SMD:R_2512_HandSoldering" V 4880 900 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 4880 900 50  0001 C CNN
 F 3 "" H 4950 900 50  0001 C CNN
 	1    4950 900 
 	0    1    1    0   
@@ -137,25 +137,17 @@ Wire Wire Line
 	4750 900  4800 900 
 Wire Wire Line
 	5100 900  5200 900 
-Text GLabel 1250 1250 2    60   Input ~ 0
+Text GLabel 900  2900 2    60   Input ~ 0
 B_RNG
-Text GLabel 1250 1350 2    60   Input ~ 0
-A_IN
-Text GLabel 1250 1450 2    60   Input ~ 0
-A_OUT
-Text GLabel 1250 2300 0    60   Input ~ 0
-A_IN
-Text GLabel 1350 2300 2    60   Input ~ 0
-A_OUT
-Wire Wire Line
-	1250 2300 1350 2300
+Text GLabel 900  1200 2    60   Input ~ 0
+CHECK
 $Comp
 L R R_B_SCH1
 U 1 1 5A57E7ED
 P 2950 1200
 F 0 "R_B_SCH1" V 3030 1200 50  0000 C CNN
 F 1 "R" V 2950 1200 50  0000 C CNN
-F 2 "Resistors_SMD:R_2512_HandSoldering" V 2880 1200 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 2880 1200 50  0001 C CNN
 F 3 "" H 2950 1200 50  0001 C CNN
 	1    2950 1200
 	0    1    1    0   
@@ -172,7 +164,7 @@ U 1 1 5A57E88B
 P 2950 1600
 F 0 "R_B_SAT1" V 3030 1600 50  0000 C CNN
 F 1 "R" V 2950 1600 50  0000 C CNN
-F 2 "Resistors_SMD:R_2512_HandSoldering" V 2880 1600 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 2880 1600 50  0001 C CNN
 F 3 "" H 2950 1600 50  0001 C CNN
 	1    2950 1600
 	0    1    1    0   
@@ -189,7 +181,7 @@ U 1 1 5A57E922
 P 2950 2000
 F 0 "R_B_RNG1" V 3030 2000 50  0000 C CNN
 F 1 "R" V 2950 2000 50  0000 C CNN
-F 2 "Resistors_SMD:R_2512_HandSoldering" V 2880 2000 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 2880 2000 50  0001 C CNN
 F 3 "" H 2950 2000 50  0001 C CNN
 	1    2950 2000
 	0    1    1    0   
@@ -208,7 +200,7 @@ U 1 1 5A57ECB2
 P 5350 1250
 F 0 "D_SC1" H 5350 1350 50  0000 C CNN
 F 1 "LED" H 5350 1150 50  0000 C CNN
-F 2 "LEDs:LED_1206_HandSoldering" H 5350 1250 50  0001 C CNN
+F 2 "LEDs:LED_D3.0mm" H 5350 1250 50  0001 C CNN
 F 3 "" H 5350 1250 50  0001 C CNN
 	1    5350 1250
 	-1   0    0    1   
@@ -219,7 +211,7 @@ U 1 1 5A57ECB9
 P 4950 1250
 F 0 "R_L_SC1" V 5030 1250 50  0000 C CNN
 F 1 "R" V 4950 1250 50  0000 C CNN
-F 2 "Resistors_SMD:R_2512_HandSoldering" V 4880 1250 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 4880 1250 50  0001 C CNN
 F 3 "" H 4950 1250 50  0001 C CNN
 	1    4950 1250
 	0    1    1    0   
@@ -236,7 +228,7 @@ U 1 1 5A57F10A
 P 5350 1600
 F 0 "D_SC2" H 5350 1700 50  0000 C CNN
 F 1 "LED" H 5350 1500 50  0000 C CNN
-F 2 "LEDs:LED_1206_HandSoldering" H 5350 1600 50  0001 C CNN
+F 2 "LEDs:LED_D3.0mm" H 5350 1600 50  0001 C CNN
 F 3 "" H 5350 1600 50  0001 C CNN
 	1    5350 1600
 	-1   0    0    1   
@@ -247,7 +239,7 @@ U 1 1 5A57F110
 P 4950 1600
 F 0 "R_L_SC2" V 5030 1600 50  0000 C CNN
 F 1 "R" V 4950 1600 50  0000 C CNN
-F 2 "Resistors_SMD:R_2512_HandSoldering" V 4880 1600 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 4880 1600 50  0001 C CNN
 F 3 "" H 4950 1600 50  0001 C CNN
 	1    4950 1600
 	0    1    1    0   
@@ -264,7 +256,7 @@ U 1 1 5A57F163
 P 5350 1950
 F 0 "D_SC3" H 5350 2050 50  0000 C CNN
 F 1 "LED" H 5350 1850 50  0000 C CNN
-F 2 "LEDs:LED_1206_HandSoldering" H 5350 1950 50  0001 C CNN
+F 2 "LEDs:LED_D3.0mm" H 5350 1950 50  0001 C CNN
 F 3 "" H 5350 1950 50  0001 C CNN
 	1    5350 1950
 	-1   0    0    1   
@@ -275,7 +267,7 @@ U 1 1 5A57F169
 P 4950 1950
 F 0 "R_L_SC3" V 5030 1950 50  0000 C CNN
 F 1 "R" V 4950 1950 50  0000 C CNN
-F 2 "Resistors_SMD:R_2512_HandSoldering" V 4880 1950 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 4880 1950 50  0001 C CNN
 F 3 "" H 4950 1950 50  0001 C CNN
 	1    4950 1950
 	0    1    1    0   
@@ -318,7 +310,7 @@ U 1 1 5A57F8D3
 P 5350 2300
 F 0 "D_SAT1" H 5350 2400 50  0000 C CNN
 F 1 "LED" H 5350 2200 50  0000 C CNN
-F 2 "LEDs:LED_1206_HandSoldering" H 5350 2300 50  0001 C CNN
+F 2 "LEDs:LED_D3.0mm" H 5350 2300 50  0001 C CNN
 F 3 "" H 5350 2300 50  0001 C CNN
 	1    5350 2300
 	-1   0    0    1   
@@ -329,7 +321,7 @@ U 1 1 5A57F8D9
 P 4950 2300
 F 0 "R_L_SAT1" V 5030 2300 50  0000 C CNN
 F 1 "R" V 4950 2300 50  0000 C CNN
-F 2 "Resistors_SMD:R_2512_HandSoldering" V 4880 2300 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 4880 2300 50  0001 C CNN
 F 3 "" H 4950 2300 50  0001 C CNN
 	1    4950 2300
 	0    1    1    0   
@@ -389,4 +381,16 @@ F 3 "" H 3400 2200 50  0001 C CNN
 	1    3400 2000
 	1    0    0    -1  
 $EndComp
+Text GLabel 900  3000 2    60   Input ~ 0
+GND
+Text GLabel 900  2300 2    60   Input ~ 0
+GND
+Text GLabel 900  1900 2    60   Input ~ 0
+Vcc
+Text GLabel 1050 3500 0    60   Input ~ 0
+CHECK
+Text GLabel 1150 3500 2    60   Input ~ 0
+Vcc
+Wire Wire Line
+	1050 3500 1150 3500
 $EndSCHEMATC
