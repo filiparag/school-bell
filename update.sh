@@ -4,7 +4,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR
 
-GIT_STATUS=`git pull`
+sudo rm * -rf
+sudo git reset --hard
+
+GIT_STATUS=`sudo git pull`
 
 if [ "$GIT_STATUS" != "Already up-to-date." ]
 then
@@ -19,8 +22,10 @@ then
     SERVICE_RUNNING=`systemctl is-active school-bell >/dev/null 2>&1 && echo YES || echo NO`
     if [ "$SERVICE_RUNNING" == "YES" ]
     then
-        echo "Restarting systemd service."
-        systemctl restart school-bell.service
+        echo "Stopping systemd service."
+        sudo systemctl stop school-bell.service
+        echo "Starting systemd service with applied update."        
+        sudo systemctl start school-bell.service
     fi
 
 else
