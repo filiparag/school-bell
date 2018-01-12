@@ -43,6 +43,7 @@ def list_names():
 def load():
 
     schedule_list = listdir(config.directory + 'schedules')
+    schedule_list.sort()
     global schedules
     schedules = {}
     for schedule_filename in schedule_list:
