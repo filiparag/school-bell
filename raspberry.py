@@ -16,7 +16,6 @@ def configure(schedule_list):
     load_state()
     state['schedule']['names'] = schedule_list
     schedule_list.sort()
-    print(schedule_list)
 
     config.verbose('Selected schedule is \'%s\'' % schedule())
 
