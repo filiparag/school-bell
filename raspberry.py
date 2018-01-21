@@ -141,11 +141,12 @@ def gpio_button_saturday():
 
 def gpio_button_ring():
 
-    sound_file = schedule.schedules[
-        state._schedule_saturday if state._saturday else state._schedule
-    ]['default sound']
-    ringer.ring(sound_file)
-    config.verbose('Ring button pressed!')
+    if not state._active:
+        sound_file = schedule.schedules[
+            state._schedule_saturday if state._saturday else state._schedule
+        ]['default sound']
+        ringer.ring(sound_file)
+        config.verbose('Ring button pressed!')
 
 
 class State:
