@@ -70,6 +70,7 @@ def gpio_connected():
     if connected_new != connected:
         config.verbose('Control board %sconnected' %
                        ('' if connected_new else 'dis'))
+        time.sleep(1)
     connected = connected_new
 
     return connected
