@@ -1,0 +1,135 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:RPi_Hat-cache
+LIBS:control-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 2
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text GLabel 4700 4910 0    60   Input ~ 0
+B_PWR
+Text GLabel 4700 4610 0    60   Input ~ 0
+B_SCH
+Text GLabel 4700 4710 0    60   Input ~ 0
+B_SAT
+Text GLabel 4700 3810 0    60   Input ~ 0
+L_PWR
+Text GLabel 4700 3710 0    60   Input ~ 0
+L_SC1
+Text GLabel 4700 3610 0    60   Input ~ 0
+L_SC2
+Text GLabel 4700 3410 0    60   Input ~ 0
+L_SC3
+Text GLabel 4700 4510 0    60   Input ~ 0
+L_SAT
+Text GLabel 4700 4810 0    60   Input ~ 0
+B_RNG
+Text GLabel 4700 4010 0    60   Input ~ 0
+CHECK
+$Comp
+L +3.3V #PWR018
+U 1 1 5A6512D1
+P 4700 3910
+F 0 "#PWR018" H 4700 3760 50  0001 C CNN
+F 1 "+3.3V" H 4700 4050 50  0000 C CNN
+F 2 "" H 4700 3910 50  0001 C CNN
+F 3 "" H 4700 3910 50  0001 C CNN
+	1    4700 3910
+	0    -1   -1   0   
+$EndComp
+$Comp
+L +3.3V #PWR019
+U 1 1 5A6512D2
+P 4700 3110
+F 0 "#PWR019" H 4700 2960 50  0001 C CNN
+F 1 "+3.3V" H 4700 3250 50  0000 C CNN
+F 2 "" H 4700 3110 50  0001 C CNN
+F 3 "" H 4700 3110 50  0001 C CNN
+	1    4700 3110
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR020
+U 1 1 5A6512D3
+P 4700 5010
+F 0 "#PWR020" H 4700 4760 50  0001 C CNN
+F 1 "GND" H 4700 4860 50  0000 C CNN
+F 2 "" H 4700 5010 50  0001 C CNN
+F 3 "" H 4700 5010 50  0001 C CNN
+	1    4700 5010
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR021
+U 1 1 5A6512D4
+P 4700 4310
+F 0 "#PWR021" H 4700 4060 50  0001 C CNN
+F 1 "GND" H 4700 4160 50  0000 C CNN
+F 2 "" H 4700 4310 50  0001 C CNN
+F 3 "" H 4700 4310 50  0001 C CNN
+	1    4700 4310
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR022
+U 1 1 5A6512D5
+P 4700 3510
+F 0 "#PWR022" H 4700 3260 50  0001 C CNN
+F 1 "GND" H 4700 3360 50  0000 C CNN
+F 2 "" H 4700 3510 50  0001 C CNN
+F 3 "" H 4700 3510 50  0001 C CNN
+	1    4700 3510
+	0    1    1    0   
+$EndComp
+$Comp
+L RPi_GPIO J2
+U 1 1 5516AE26
+P 4900 3110
+AR Path="/5516AE26" Ref="J2"  Part="1" 
+AR Path="/5515D395/5516AE26" Ref="J2"  Part="1" 
+F 0 "J2" H 5650 3360 60  0000 C CNN
+F 1 "RPi_GPIO" H 5650 3260 60  0000 C CNN
+F 2 "RPi_Hat:Pin_Header_Straight_2x20" H 4900 3110 60  0001 C CNN
+F 3 "" H 4900 3110 60  0000 C CNN
+	1    4900 3110
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
