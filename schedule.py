@@ -18,12 +18,12 @@ weekdays = {
 }
 
 
-def today(schedule):
+def today(schedule, force=False):
 
     if schedules is None:
         load()
     time_list = Queue()
-    if schedules[schedule]['days'][datetime.datetime.now().weekday()] is False:
+    if schedules[schedule]['days'][datetime.datetime.now().weekday()] is False and not force:
         return time_list
     current_time = (datetime.datetime.now().hour, datetime.datetime.now(
     ).minute, datetime.datetime.now().second)

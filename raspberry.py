@@ -9,6 +9,7 @@ import datetime
 import RPi.GPIO as GPIO
 
 state = None
+connected = False
 
 gpio = {
     'led': {
@@ -52,16 +53,8 @@ def gpio_setup():
 
 def gpio_cycle(active):
 
-    # print('gpio cycler')
-
     while active:
-
-        # print('gpio cycle')
-
         if gpio_connected():
-
-            # print('connected')
-
             gpio_poll()
             gpio_led()
 
@@ -72,7 +65,14 @@ def gpio_connected():
     time.sleep(0.05)
     check_state_new_2 = bool(GPIO.input(config.get('raspberry', 'pin_check')))
 
-    return check_state_new_1 and check_state_new_2
+    global connected
+    connected_new = check_state_new_1 and check_state_new_2
+    if connected_new != connected:
+        config.verbose('Control board %sconnected' %
+                       ('' if connected_new else 'dis'))
+    connected = connected_new
+
+    return connected
 
 
 def gpio_poll():
@@ -140,6 +140,10 @@ def gpio_button_saturday():
 
 def gpio_button_ring():
 
+    sound_file = schedule.schedules[
+        state._schedule_saturday if state._saturday else state._schedule
+    ]['default sound']
+    ringer.ring(sound_file)
     config.verbose('Ring button pressed!')
 
 
@@ -298,8 +302,9 @@ def start():
             if not bell_thread.is_alive():
                 today = datetime.datetime.now().weekday()
                 schedule_queue = None
-                if state._saturday and today == 5:
-                    schedule_queue = schedule.today(state._schedule_saturday)
+                if state._saturday and today == 6:
+                    schedule_queue = schedule.today(
+                        state._schedule_saturday, force=True)
                 else:
                     schedule_queue = schedule.today(state._schedule)
                 import calendar
