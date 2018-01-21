@@ -6,7 +6,7 @@ import os
 import threading
 import time
 import datetime
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 state = None
 
@@ -35,83 +35,87 @@ def gpio_setup():
 
     config.verbose('Setting up GPIO pins')
 
-    # GPIO.setwarnings(False)
-    # GPIO.cleanup()
-    # GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.cleanup()
+    GPIO.setmode(GPIO.BCM)
 
-    # GPIO.setup(gpio['led']['power'], GPIO.OUT)
-    # for pin in gpio['led']['sched']:
-    #     GPIO.setup(pin, GPIO.OUT)
-    # GPIO.setup(gpio['led']['satur'], GPIO.OUT)
+    GPIO.setup(gpio['led']['power'], GPIO.OUT)
+    for pin in gpio['led']['sched']:
+        GPIO.setup(pin, GPIO.OUT)
+    GPIO.setup(gpio['led']['satur'], GPIO.OUT)
 
-    # for button in gpio['button']:
-    #     GPIO.setup(gpio[buttFon], GPIO.OUT)
+    for button in gpio['button']:
+        GPIO.setup(gpio['button'][button], GPIO.IN)
+
+    GPIO.setup(gpio['check'], GPIO.IN)
 
 
 def gpio_cycle(active):
 
+    # print('gpio cycler')
+
     while active:
+
+        # print('gpio cycle')
 
         if gpio_connected():
 
-            # gpio_led()
-            # gpio_poll()
+            # print('connected')
 
-            pass
-
-            # temp
-        time.sleep(0.1)
+            gpio_poll()
+            gpio_led()
 
 
 def gpio_connected():
 
-    return True
+    check_state_new_1 = bool(GPIO.input(config.get('raspberry', 'pin_check')))
+    time.sleep(0.05)
+    check_state_new_2 = bool(GPIO.input(config.get('raspberry', 'pin_check')))
+
+    return check_state_new_1 and check_state_new_2
 
 
 def gpio_poll():
 
-    print('gpio_poll()')
+    button_state_new_1 = gpio_button_state()
+    time.sleep(0.05)
+    button_state_new_2 = gpio_button_state()
 
-    # global button_state
+    button_state_new = [one if one is two else False for one, two in
+                        zip(button_state_new_1, button_state_new_2)]
 
-    # while True:
-    #     button_state_new_1 = [not GPIO.input(config.get('raspberry', 'btn_power')),
-    #                           not GPIO.input(config.get(
-    #                               'raspberry', 'btn_sched')),
-    #                           not GPIO.input(config.get('raspberry', 'btn_macro'))]
-    #     time.sleep(0.1)
-    #     button_state_new_2 = [not GPIO.input(config.get('raspberry', 'btn_power')),
-    #                           not GPIO.input(config.get(
-    #                               'raspberry', 'btn_sched')),
-    #                           not GPIO.input(config.get('raspberry', 'btn_macro'))]
+    button_state_delta = [True if not old and new else False for old, new in
+                          zip(gpio['button_state'], button_state_new)]
 
-    #     button_state_new = [one if one is two else False for one, two in
-    #                         zip(button_state_new_1, button_state_new_2)]
+    gpio['button_state'] = button_state_new
 
-    #     button_state_delta = [True if old is not new else False for old, new in
-    #                           zip(button_state, button_state_new)]
+    if button_state_delta != [False] * 4:
+        if gpio['button_state'][0]:
+            gpio_button_power()
+        if gpio['button_state'][1]:
+            gpio_button_schedule()
+        if gpio['button_state'][2]:
+            gpio_button_saturday()
+        if gpio['button_state'][3]:
+            gpio_button_ring()
 
-    #     button_state = button_state_new
 
-    #     if button_state_delta != [False] * 3:
-    #         if button_state[0]:
-    #             action_active()
-    #         if button_state[1]:
-    #             action_schedule()
-    #         if button_state[2]:
-    #             action_macro()
+def gpio_button_state():
+
+    return [not bool(GPIO.input(gpio['button']['power'])),
+            not bool(GPIO.input(gpio['button']['sched'])),
+            not bool(GPIO.input(gpio['button']['satur'])),
+            not bool(GPIO.input(gpio['button']['mring']))]
 
 
 def gpio_led():
 
-    print('gpio_led()')
+    GPIO.output(gpio['led']['power'], state._led['power'])
+    GPIO.output(gpio['led']['satur'], state._led['satur'])
 
-    # GPIO.output(gpio['led']['power'], state._led['power'])
-    # GPIO.output(gpio['led']['satur'], state._led['satur'])
-
-    # sched = 'ssche' if datetime.datetime.now().weekday() is 5 else 'sched'
-    # for pin in range(gpio['led']['sched']):
-    #     GPIO.output(gpio['led']['sched'][pin], state._led[sched][pin])
+    sched = 'ssche' if state._saturday else 'sched'
+    for pin in range(len(gpio['led']['sched'])):
+        GPIO.output(gpio['led']['sched'][pin], state._led[sched][pin])
 
 
 def gpio_button_power():
@@ -122,14 +126,16 @@ def gpio_button_power():
 
 def gpio_button_schedule():
 
-    state.schedule(next=True, saturday=state._saturday)
-    config.verbose('Schedule button pressed!')
+    if not state._active:
+        state.schedule(next=True, saturday=state._saturday)
+        config.verbose('Schedule button pressed!')
 
 
 def gpio_button_saturday():
 
-    state.saturday(not state._saturday)
-    config.verbose('Saturday button pressed!')
+    if not state._active:
+        state.saturday(not state._saturday)
+        config.verbose('Saturday button pressed!')
 
 
 def gpio_button_ring():
@@ -148,8 +154,8 @@ class State:
 
         self._led = {
             'power': False,
-            'sched': (0, 0, 0),
-            'ssche': (0, 0, 0),
+            'sched': [0, 0, 0],
+            'ssche': [0, 0, 0],
             'satur': False
         }
 
@@ -171,7 +177,7 @@ class State:
             self._active = value
         else:
             self._active = not self._active
-        self.led('active', value)
+        self.led('power', value)
 
         self.save()
 
@@ -188,30 +194,32 @@ class State:
         if name is not None:
             if saturday:
                 self._schedule_saturday = name
-                self.led(name='ssche', value=schedule_list.index(name))
+                self.led(name='ssche', value=schedule_list.index(name) + 1)
                 config.verbose(
-                    'Current Saturday schedule is set to \'%s\'' % self._schedule_saturday)
+                    'Current Saturday schedule is set to \'%s\'' % name)
             else:
                 self._schedule = name
-                self.led(name='sched', value=schedule_list.index(name))
+                self.led(name='sched', value=schedule_list.index(name) + 1)
                 config.verbose('Current schedule is set to \'%s\'' %
-                               self._schedule)
+                               name)
 
         if next is True:
             if saturday:
                 current = schedule_list.index(self._schedule_saturday)
-                self._schedule_saturday = schedule_list[(
-                    current + 1) % len(schedule_list)]
+                name = schedule_list[(current + 1) % len(schedule_list)]
+                self._schedule_saturday = name
+                self.led(name='ssche', value=schedule_list.index(name) + 1)
                 config.verbose(
-                    'Current Saturday schedule is set to \'%s\'' % self._schedule_saturday)
+                    'Current Saturday schedule is set to \'%s\'' % name)
             else:
                 current = schedule_list.index(self._schedule)
-                self._schedule = schedule_list[(
-                    current + 1) % len(schedule_list)]
+                name = schedule_list[(current + 1) % len(schedule_list)]
+                self._schedule = name
+                self.led(name='sched', value=schedule_list.index(name) + 1)
                 config.verbose('Current schedule is set to \'%s\'' %
-                               self._schedule)
+                               name)
 
-    def saturday(self, value):
+    def saturday(self, value=None):
 
         if value is not None:
             self._saturday = value
@@ -222,7 +230,7 @@ class State:
         self.save()
 
         config.verbose('School bell is now %sactive on Saturdays' %
-                       ('' if value else 'in'))
+                       ('' if self._saturday else 'in'))
 
     def led(self, name=None, value=False):
 
@@ -300,7 +308,7 @@ def start():
                                    calendar.day_name[today])
                     bell_start(schedule_queue)
 
-        time.sleep(.5)
+        time.sleep(0.5)
 
 
 def bell_start(schedule_queue):
