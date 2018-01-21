@@ -302,7 +302,7 @@ def start():
             if not bell_thread.is_alive():
                 today = datetime.datetime.now().weekday()
                 schedule_queue = None
-                if state._saturday and today == 6:
+                if state._saturday and today == 5:
                     schedule_queue = schedule.today(
                         state._schedule_saturday, force=True)
                 else:
