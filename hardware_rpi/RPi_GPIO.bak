@@ -29,7 +29,6 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:RPi_Hat-cache
-LIBS:control-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -50,13 +49,13 @@ Text GLabel 4700 4610 0    60   Input ~ 0
 B_SCH
 Text GLabel 4700 4710 0    60   Input ~ 0
 B_SAT
-Text GLabel 4700 3410 0    60   Input ~ 0
-L_PWR
 Text GLabel 4700 3810 0    60   Input ~ 0
-L_SC1
+L_PWR
 Text GLabel 4700 3710 0    60   Input ~ 0
-L_SC2
+L_SC1
 Text GLabel 4700 3610 0    60   Input ~ 0
+L_SC2
+Text GLabel 4700 3410 0    60   Input ~ 0
 L_SC3
 Text GLabel 4700 4510 0    60   Input ~ 0
 L_SAT
@@ -95,28 +94,6 @@ F 1 "GND" H 4700 4860 50  0000 C CNN
 F 2 "" H 4700 5010 50  0001 C CNN
 F 3 "" H 4700 5010 50  0001 C CNN
 	1    4700 5010
-	0    1    1    0   
-$EndComp
-$Comp
-L GND #PWR021
-U 1 1 5A6512D4
-P 4700 4310
-F 0 "#PWR021" H 4700 4060 50  0001 C CNN
-F 1 "GND" H 4700 4160 50  0000 C CNN
-F 2 "" H 4700 4310 50  0001 C CNN
-F 3 "" H 4700 4310 50  0001 C CNN
-	1    4700 4310
-	0    1    1    0   
-$EndComp
-$Comp
-L GND #PWR022
-U 1 1 5A6512D5
-P 4700 3510
-F 0 "#PWR022" H 4700 3260 50  0001 C CNN
-F 1 "GND" H 4700 3360 50  0000 C CNN
-F 2 "" H 4700 3510 50  0001 C CNN
-F 3 "" H 4700 3510 50  0001 C CNN
-	1    4700 3510
 	0    1    1    0   
 $EndComp
 $Comp
