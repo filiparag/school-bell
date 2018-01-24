@@ -10,7 +10,7 @@
         "Sunday": false
     },
 
-    "default sound": "russian_bells_short.wav",
+    "default sound": "russian_bells_fadeout.wav",
 
 	"times": [
 		[ 7, 30,  0, "russian_bells_long.wav"],
