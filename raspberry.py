@@ -265,6 +265,11 @@ class State:
                     self._schedule_saturday = loaded_state._schedule_saturday
                     self._led = loaded_state._led
                     config.verbose('Loaded previous GPIO state')
+                    config.verbose('Active: %s\n' % self._active + 
+                                   'Schedule: %s\n' % self._active + 
+                                   'Saturday: %s\n' % self._active + 
+                                   'Schedule saturday: %s\n' % self._active + 
+                                   'LED: %s' % self._active)                    
                     return True
             except Exception:
                 config.verbose('Previous GPIO state could not be restored')
