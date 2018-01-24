@@ -4,6 +4,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR
 
+sudo mv .gpio_state /tmp/.gpio_state
+
 sudo rm * -rf
 sudo git reset --hard
 
@@ -33,3 +35,5 @@ else
     echo "Already at the latest version!"
 
 fi
+
+sudo mv /tmp/.gpio_state .gpio_state
